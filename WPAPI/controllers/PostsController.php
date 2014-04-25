@@ -11,7 +11,10 @@ class PostsController extends \WPSpokes\Framework\Controller
   
   public function index()
   {
-    $posts = \WPSpokes\Framework\Models\Post::all();
+    $q = \WPSpokes\Framework\Models\Post::query();
+    foreach($_GET as $key => $val)
+      $q->where($key, '=', $val);
+    $posts = $q->get();
     echo $posts->toJSON();
   }
 }
