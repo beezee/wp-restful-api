@@ -2,19 +2,10 @@
 
 namespace WPAPI\Controllers;
 
-class PostsController extends \WPSpokes\Framework\Controller
+class PostsController extends APIController
 {
-  public function before()
+  public function get_model_class()
   {
-    header('Content-Type: application/json');
-  }
-  
-  public function index()
-  {
-    $q = \WPSpokes\Framework\Models\Post::query();
-    foreach($_GET as $key => $val)
-      $q->where($key, '=', $val);
-    $posts = $q->get();
-    echo $posts->toJSON();
+    return '\WPSpokes\Framework\Models\Post';
   }
 }
