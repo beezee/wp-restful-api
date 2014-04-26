@@ -13,6 +13,9 @@ class WPAPI
   public static function add_routes()
   {
     \WPSpokes::instance()->router->map('/api/posts', '\WPAPI\Controllers\Posts#index');
+    \WPSpokes::instance()->router->map('/api/users', '\WPAPI\Controllers\Users#index');
+    \WPSpokes::instance()->router->map('/api/tags', '\WPAPI\Controllers\Tags#index');
+    \WPSpokes::instance()->router->map('/api/categories', '\WPAPI\Controllers\Categories#index');
   }
 
   public static function initialize()
