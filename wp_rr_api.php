@@ -14,6 +14,8 @@ class WPAPI
   {
     \WPSpokes::instance()->router->map("/api/$resource_name", 
       '\WPAPI\Controllers\\'.ucfirst($resource_name).'#index');
+    \WPSpokes::instance()->router->map("/api/$resource_name/:id", 
+      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#show');
   }
 
   public static function add_routes()

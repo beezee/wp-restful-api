@@ -20,5 +20,13 @@ abstract class APIController extends \WPSpokes\Framework\Controller
     $items = $q->get();
     echo $items->toJSON();
   }
+
+  public function show($id)
+  {
+    $class = $this->model_class;
+    if (!$instance = $class::find($id))
+      return $this->set404();
+    echo $instance->toJSON();
+  }
 }
 
