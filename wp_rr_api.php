@@ -10,12 +10,16 @@
 class WPAPI
 {
 
+  public static function create_resource($resource_name)
+  {
+    \WPSpokes::instance()->router->map("/api/$resource_name", 
+      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#index');
+  }
+
   public static function add_routes()
   {
-    \WPSpokes::instance()->router->map('/api/posts', '\WPAPI\Controllers\Posts#index');
-    \WPSpokes::instance()->router->map('/api/users', '\WPAPI\Controllers\Users#index');
-    \WPSpokes::instance()->router->map('/api/tags', '\WPAPI\Controllers\Tags#index');
-    \WPSpokes::instance()->router->map('/api/categories', '\WPAPI\Controllers\Categories#index');
+    foreach(array('posts', 'users', 'tags', 'categories') as $resource_name)
+      self::create_resource($resource_name);
   }
 
   public static function initialize()
