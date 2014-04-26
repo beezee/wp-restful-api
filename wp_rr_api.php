@@ -13,9 +13,13 @@ class WPAPI
   public static function create_resource($resource_name)
   {
     \WPSpokes::instance()->router->map("/api/$resource_name", 
-      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#index');
+      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#index',
+      array('methods' => 'GET'));
     \WPSpokes::instance()->router->map("/api/$resource_name/:id", 
       '\WPAPI\Controllers\\'.ucfirst($resource_name).'#show');
+    \WPSpokes::instance()->router->map("/api/$resource_name", 
+      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#create_new',
+      array('methods' => 'POST'));
   }
 
   public static function add_routes()

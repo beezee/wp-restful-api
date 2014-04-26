@@ -28,5 +28,14 @@ abstract class APIController extends \WPSpokes\Framework\Controller
       return $this->set404();
     echo $instance->toJSON();
   }
+
+  public function create_new()
+  {
+    $params = json_decode(file_get_contents('php://input'), true);
+    $class = $this->model_class;
+    $instance = new $class($params);
+    $instance->save();
+    echo $instance->toJSON();
+  }
 }
 
