@@ -48,5 +48,20 @@ abstract class APIController extends \WPSpokes\Framework\Controller
     $instance->save();
     echo $instance->toJSON();
   }
+
+  public function update($id)
+  {
+    $this->find_or_404($id);
+    $this->instance->fill($this->params);
+    $this->instance->save();
+    echo $this->instance->toJSON();
+  }
+
+  public function delete_instance($id)
+  {
+    $this->find_or_404($id);
+    $this->instance->delete();
+    echo $this->instance->toJSON();
+  }
 }
 

@@ -16,10 +16,17 @@ class WPAPI
       '\WPAPI\Controllers\\'.ucfirst($resource_name).'#index',
       array('methods' => 'GET'));
     \WPSpokes::instance()->router->map("/api/$resource_name/:id", 
-      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#show');
+      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#show',
+      array('methods' => 'GET'));
     \WPSpokes::instance()->router->map("/api/$resource_name", 
       '\WPAPI\Controllers\\'.ucfirst($resource_name).'#create_new',
       array('methods' => 'POST'));
+    \WPSpokes::instance()->router->map("/api/$resource_name/:id", 
+      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#update',
+      array('methods' => 'PUT'));
+    \WPSpokes::instance()->router->map("/api/$resource_name/:id", 
+      '\WPAPI\Controllers\\'.ucfirst($resource_name).'#delete_instance',
+      array('methods' => 'DELETE'));
   }
 
   public static function add_routes()
