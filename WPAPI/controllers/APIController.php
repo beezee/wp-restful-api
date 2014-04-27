@@ -4,12 +4,26 @@ namespace WPAPI\Controllers;
 
 abstract class APIController extends \WPSpokes\Framework\Controller
 {
+  public $instance;
+
   public function before()
   {
     header('Content-Type: application/json');
   }
 
   public abstract function get_model_class();
+
+  public function find_or_404($id)
+  {
+    $class = $this->model_class;
+    if (!$this->instance = $class::find($id))
+      $this->set404();
+  }
+
+  public function get_params()
+  {
+    return json_decode(file_get_contents('php://input'), true);
+  }
   
   public function index()
   {
@@ -23,17 +37,14 @@ abstract class APIController extends \WPSpokes\Framework\Controller
 
   public function show($id)
   {
-    $class = $this->model_class;
-    if (!$instance = $class::find($id))
-      return $this->set404();
-    echo $instance->toJSON();
+    $this->find_or_404($id);
+    echo $this->instance->toJSON();
   }
 
   public function create_new()
   {
-    $params = json_decode(file_get_contents('php://input'), true);
     $class = $this->model_class;
-    $instance = new $class($params);
+    $instance = new $class($this->params);
     $instance->save();
     echo $instance->toJSON();
   }
